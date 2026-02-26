@@ -18,8 +18,9 @@ def connect_google_sheets():
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive"
     ]
-    creds = ServiceAccountCredentials.from_json_keyfile_name(
-        "service_account.json", scope
+    ccreds = ServiceAccountCredentials.from_json_keyfile_dict(
+        st.secrets["gcp_service_account"], scope
+    )
     )
     client = gspread.authorize(creds)
     return client.open("The Good Future Project – Chitti Database")
