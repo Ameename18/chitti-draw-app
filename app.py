@@ -2,6 +2,7 @@ import streamlit as st
 import random
 import time
 import base64
+import json
 from datetime import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
@@ -19,8 +20,11 @@ def connect_google_sheets():
         "https://www.googleapis.com/auth/drive"
     ]
 
+    # Load JSON string from Streamlit secrets
+    creds_dict = json.loads(st.secrets["gcp_service_account"])
+
     creds = ServiceAccountCredentials.from_json_keyfile_dict(
-        st.secrets["gcp_service_account"],
+        creds_dict,
         scope
     )
 
